@@ -1,0 +1,7 @@
+feedparser>=6.0.10
+pyrogram>=2.0.106
+tgcrypto>=1.2.3
+natsort>=8.4.0
+aiohttp>=3.8.5
+html-telegraph-poster>=0.2.31
+psutil>=5.9.6
