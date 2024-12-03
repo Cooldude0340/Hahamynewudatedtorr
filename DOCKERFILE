@@ -1,0 +1,23 @@
+# Use the latest Python image with slim variant for smaller size
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy necessary files to the working directory
+COPY run.sh requirements.txt testwatermark.jpg ./
+COPY lazyleech ./lazyleech/
+
+# Install necessary system packages and clean up
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg aria2 file \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Optional: set permissions for scripts
+RUN chmod +x run.sh
+
+# Entry point for the container (uncomment if needed)
+# CMD ["bash", "run.sh"]
