@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+# lazyleech - Telegram bot primarily to leech from torrents and upload to Telegram
+# Copyright (c) 2021 lazyleech developers <theblankx protonmail com, meliodas_bot protonmail com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+import glob
+import sys
+from pathlib import Path
+
+# Define the expected license header
+LICENSE_HEADER = '''
+# lazyleech - Telegram bot primarily to leech from torrents and upload to Telegram
+# Copyright (c) 2021 lazyleech developers <theblankx protonmail com, meliodas_bot protonmail com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''.strip()
+
+# Scan all .py files in the lazyleech directory recursively
+def check_license_headers(base_path='lazyleech'):
+    missing_header = False
+    for file_path in Path(base_path).rglob("*.py"):
+        with file_path.open('r', encoding='utf-8') as file:
+            file_header = file.read(len(LICENSE_HEADER))
+        if file_header != LICENSE_HEADER:
+            print(f"{file_path} is missing the AGPL license header.")
+            missing_header = True
+    return missing_header
+
+# Main execution
+if __name__ == "__main__":
+    if check_license_headers():
+        sys.exit(1)  # Exit with error if any file is missing the license header
+    else:
+        print("All files contain the correct AGPL license header.")
+        sys.exit(0)
