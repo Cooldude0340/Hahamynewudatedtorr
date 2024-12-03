@@ -6,7 +6,7 @@ import asyncio
 import logging
 import traceback
 from pyrogram import idle
-from . import app, ADMIN_CHATS, preserved_logs
+from Lazyleech import app, ADMIN_CHATS, preserved_logs
 from .utils.upload_worker import upload_worker
 
 # Configure logging
